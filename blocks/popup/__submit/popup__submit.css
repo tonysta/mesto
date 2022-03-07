@@ -11,6 +11,8 @@
   background-color: #000;
   border-radius: 2px;
   border: none;
+  cursor: pointer;
+  transition: opacity;
 }
 
 @media screen and (max-width: 425px) {
@@ -20,4 +22,8 @@
     font-size: 14px;
     line-height: 17px;
   }
+}
+
+.popup__submit:hover {
+  opacity: 0.8;
 }

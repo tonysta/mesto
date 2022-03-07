@@ -7,10 +7,16 @@
   background-image: url(../../images/add-btn.svg);
   background-position: center;
   background-repeat: no-repeat;
+  transition: opacity;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 425px) {
   .add-btn {
     width: 282px;
   }
+}
+
+.add-btn:hover {
+  opacity: 0.6;
 }
