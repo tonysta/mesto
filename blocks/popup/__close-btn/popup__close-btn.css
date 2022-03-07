@@ -9,3 +9,12 @@
   background-color: rgba(0, 0, 0, 0);
   border: 0;
 }
+
+@media screen and (max-width: 425px) {
+  .popup__close-btn {
+    top: 16px;
+    right: 0;
+    width: 20px;
+    height: 20px;
+  }
+}

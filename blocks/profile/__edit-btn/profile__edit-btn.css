@@ -3,5 +3,14 @@
   height: 24px;
   background-color: #000;
   border: 1px solid white;
-  border-radius: 5%;
+  background-image: url(../../../images/edit-btn.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 425px) {
+  .profile__edit-btn {
+    width: 18px;
+    height: 18px;
+  }
 }

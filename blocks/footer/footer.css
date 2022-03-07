@@ -2,3 +2,16 @@
   max-width: 880px;
   margin: 0 auto 60px;
 }
+
+@media screen and (max-width: 768px) {
+  .footer {
+    max-width: 581px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .footer {
+    max-width: 282px;
+    margin: 0 auto 36px;
+  }
+}

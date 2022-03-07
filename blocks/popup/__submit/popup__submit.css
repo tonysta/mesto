@@ -10,4 +10,14 @@
   color: #ffffff;
   background-color: #000;
   border-radius: 2px;
+  border: none;
+}
+
+@media screen and (max-width: 425px) {
+  .popup__submit {
+    width: 238px;
+    margin: 0 auto 25px;
+    font-size: 14px;
+    line-height: 17px;
+  }
 }

@@ -7,3 +7,19 @@
   row-gap: 20px;
   column-gap: 17px;
 }
+
+@media screen and (max-width: 768px) {
+  .cards-container {
+    max-width: 581px;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .cards-container {
+    max-width: 320px;
+    grid-template-columns: 1fr;
+    margin: 0 auto 48px;
+  }
+}
