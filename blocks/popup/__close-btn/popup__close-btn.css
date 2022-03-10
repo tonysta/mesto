@@ -10,14 +10,16 @@
   border: 0;
   cursor: pointer;
   transition: opacity;
+  padding: 0;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 600px) {
   .popup__close-btn {
-    top: 16px;
+    top: -26px;
     right: 0;
     width: 20px;
     height: 20px;
+    background-image: url(../../../images/close-Icon-mobile.svg);
   }
 }
 

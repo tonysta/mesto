@@ -8,12 +8,14 @@
   background-repeat: no-repeat;
   transition: opacity;
   cursor: pointer;
+  padding: 11px;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 600px) {
   .profile__edit-btn {
     width: 18px;
     height: 18px;
+    padding: 9px;
   }
 }
 

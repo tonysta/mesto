@@ -1,22 +1,23 @@
-.add-btn {
+.profile__add-btn {
   width: 150px;
   height: 50px;
   background-color: #000;
   border: 2px solid white;
   border-radius: 2px;
-  background-image: url(../../images/add-btn.svg);
+  background-image: url(../../../images/add-btn.svg);
   background-position: center;
   background-repeat: no-repeat;
   transition: opacity;
   cursor: pointer;
+  padding: 0;
 }
 
-@media screen and (max-width: 425px) {
-  .add-btn {
+@media screen and (max-width: 600px) {
+  .profile__add-btn {
     width: 282px;
   }
 }
 
-.add-btn:hover {
+.profile__add-btn:hover {
   opacity: 0.6;
 }
