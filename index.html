@@ -97,14 +97,18 @@
       </main>
       <div class="popup">
         <div class="popup__container">
-          <button type="reset" class="popup__close-btn"></button>
+          <button type="button" class="popup__close-btn"></button>
           <form name="profile" class="popup__form">
             <h2 class="popup__title">Редактировать профиль</h2>
-            <input type="text" name="name" class="popup__input popup__name" />
+            <input
+              type="text"
+              name="name"
+              class="popup__input popup__input_type_name"
+            />
             <input
               type="text"
               name="profession"
-              class="popup__input popup__profession"
+              class="popup__input popup__input_type_profession"
             />
             <button type="submit" class="popup__submit">Сохранить</button>
           </form>
