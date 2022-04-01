@@ -30,75 +30,12 @@
           </div>
           <button type="button" class="profile__add-btn"></button>
         </section>
-        <section class="cards-container">
-          <div class="card">
-            <img src="./images/dombai.jpg" alt="Домбай" class="card__img" />
-            <div class="card__heading">
-              <h2 class="card__title">Домбай</h2>
-              <button type="button" class="card__like-btn"></button>
-            </div>
-          </div>
-          <div class="card">
-            <img
-              src="./images/karachaevsk.jpg"
-              alt="Карачаевск"
-              class="card__img"
-            />
-            <div class="card__heading">
-              <h2 class="card__title">Карачаевск</h2>
-              <button type="button" class="card__like-btn"></button>
-            </div>
-          </div>
-          <div class="card">
-            <img
-              src="./images/austarlia.jpg"
-              alt="Австралия"
-              class="card__img"
-            />
-            <div class="card__heading">
-              <h2 class="card__title">Австралия</h2>
-              <button type="button" class="card__like-btn"></button>
-            </div>
-          </div>
-          <div class="card">
-            <img
-              src="./images/bermuda.jpg"
-              alt="Бермудские острова"
-              class="card__img"
-            />
-            <div class="card__heading">
-              <h2 class="card__title">Бермудские острова</h2>
-              <button type="button" class="card__like-btn"></button>
-            </div>
-          </div>
-          <div class="card">
-            <img
-              src="./images/los-angeles.jpg"
-              alt="Лос-Анджелес"
-              class="card__img"
-            />
-            <div class="card__heading">
-              <h2 class="card__title">Лос-Анджелес</h2>
-              <button type="button" class="card__like-btn"></button>
-            </div>
-          </div>
-          <div class="card">
-            <img
-              src="./images/red-sea.jpg"
-              alt="Красное море"
-              class="card__img"
-            />
-            <div class="card__heading">
-              <h2 class="card__title">Красное море</h2>
-              <button type="button" class="card__like-btn"></button>
-            </div>
-          </div>
-        </section>
+        <section class="cards-container"></section>
       </main>
-      <div class="popup">
+      <div class="popup popup_section_profile">
         <div class="popup__container">
           <button type="button" class="popup__close-btn"></button>
-          <form name="profile" class="popup__form">
+          <form name="profile" class="popup__form popup__form_type_profile">
             <h2 class="popup__title">Редактировать профиль</h2>
             <input
               type="text"
@@ -114,10 +51,51 @@
           </form>
         </div>
       </div>
+      <div class="popup popup_section_card">
+        <div class="popup__container">
+          <button type="button" class="popup__close-btn"></button>
+          <form name="profile" class="popup__form popup__form_type_card">
+            <h2 class="popup__title">Новое место</h2>
+            <input
+              type="text"
+              placeholder="Название"
+              name="name"
+              class="popup__input popup__input_type_name"
+            />
+            <input
+              type="text"
+              placeholder="Ссылка на картинку"
+              name="link"
+              class="popup__input popup__input_type_link"
+            />
+            <button type="submit" class="popup__submit">Создать</button>
+          </form>
+        </div>
+      </div>
+      <div class="popup viewer">
+        <div class="viewer__container">
+          <button
+            type="button"
+            class="viewer__close-btn popup__close-btn"
+          ></button>
+          <img src="" alt="" class="viewer__img" />
+          <h2 class="viewer__title"></h2>
+        </div>
+      </div>
       <footer class="footer">
         <p class="footer__copyright">&#169; 2022 Mesto Russia</p>
       </footer>
     </div>
+    <template class="card__template">
+      <div class="card">
+        <button type="button" class="card__trash-btn"></button>
+        <img src="./images/dombai.jpg" alt="Домбай" class="card__img" />
+        <div class="card__heading">
+          <h2 class="card__title">Домбай</h2>
+          <button type="button" class="card__like-btn"></button>
+        </div>
+      </div>
+    </template>
     <script src="./scripts/script.js"></script>
   </body>
 </html>
