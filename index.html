@@ -40,11 +40,13 @@
             <input
               type="text"
               name="name"
+              placeholder="Иван Иванов"
               class="popup__input popup__input_type_name"
             />
             <input
               type="text"
               name="profession"
+              placeholder="Инженер"
               class="popup__input popup__input_type_profession"
             />
             <button type="submit" class="popup__submit">Сохранить</button>
@@ -54,12 +56,12 @@
       <div class="popup popup_section_card">
         <div class="popup__container">
           <button type="button" class="popup__close-btn"></button>
-          <form name="profile" class="popup__form popup__form_type_card">
+          <form name="card" class="popup__form popup__form_type_card">
             <h2 class="popup__title">Новое место</h2>
             <input
               type="text"
               placeholder="Название"
-              name="name"
+              name="card_name"
               class="popup__input popup__input_type_name"
             />
             <input
@@ -96,6 +98,7 @@
         </div>
       </div>
     </template>
+    <script src="./scripts/cards.js"></script>
     <script src="./scripts/script.js"></script>
   </body>
 </html>
