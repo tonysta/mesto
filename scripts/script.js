@@ -13,25 +13,35 @@ const profileProfession = document.querySelector(".profile__profession");
 const cardContainer = document.querySelector(".cards-container");
 const addCardBtn = document.querySelector(".profile__add-btn");
 
+const cardName = popupCard.querySelector(".popup__input_type_name");
+const cardLink = popupCard.querySelector(".popup__input_type_link");
+
 function createCard(element) {
-  const card = document
+  const cardNode = document
     .querySelector(".card__template")
     .content.firstElementChild.cloneNode(true);
 
-  card.querySelector(".card__title").textContent = element.name;
-  card.querySelector(".card__img").src = element.link;
-  card.querySelector(".card__img").alt = element.name;
+  cardNode.querySelector(".card__title").textContent = element.name;
+  cardNode.querySelector(".card__img").src = element.link;
+  cardNode.querySelector(".card__img").alt = element.name;
 
-  card
+  cardNode
     .querySelector(".card__like-btn")
     .addEventListener("click", function (event) {
       event.target.classList.toggle("card__like-btn_active");
     });
 
-  card.querySelector(".card__img").addEventListener("click", openViewer);
+  cardNode.querySelector(".card__img").addEventListener("click", openViewer);
 
-  card.querySelector(".card__trash-btn").addEventListener("click", removeCard);
+  cardNode
+    .querySelector(".card__trash-btn")
+    .addEventListener("click", removeCard);
 
+  return cardNode;
+}
+
+function renderCard(cardData) {
+  const card = createCard(cardData);
   cardContainer.prepend(card);
 }
 
@@ -49,13 +59,11 @@ function openViewer(event) {
 
 function addCard(event) {
   event.preventDefault();
-  const cardName = popupCard.querySelector(".popup__input_type_name").value;
-  const cardLink = popupCard.querySelector(".popup__input_type_link").value;
-  createCard({ name: cardName, link: cardLink });
+  renderCard({ name: cardName.value, link: cardLink.value });
   closePopup(popupCard);
 
-  popupCard.querySelector(".popup__input_type_name").value = "";
-  popupCard.querySelector(".popup__input_type_link").value = "";
+  cardName.value = "";
+  cardLink.value = "";
 }
 
 function removeCard(event) {
@@ -97,4 +105,4 @@ viewer
 addCardBtn.addEventListener("click", () => openPopup(popupCard));
 cardForm.addEventListener("submit", addCard);
 
-initialCards.forEach(createCard);
+initialCards.forEach(renderCard);
