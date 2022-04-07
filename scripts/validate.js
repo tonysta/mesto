@@ -1,32 +1,45 @@
-const formElement = document.querySelector('.popup__form');
-const inputElement = formElement.querySelector('.popup__input');
-const inputError = formElement.querySelector(`.${inputElement.name}-input-error`);
+const form = document.querySelector('.popup__form');
+const formInput = form.querySelector('.popup__input');
+const inputError = form.querySelector(`.${formInput.name}-input-error`);
 
-const showInputError = (element, errorMessage) => {
-    element.classList.add('popup__input_type_error');
-    inputError.textContent = errorMessage;
-    inputError.classList.add('popup__input-error_type_active');
+const showInputError = (formElement, inputElement, errorMessage) => {
+    const errorElement = formElement.querySelector(`.${inputElement.name}-input-error`);
+    inputElement.classList.add('popup__input_type_error');
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add('popup__input-error_type_active');
 }
 
-const hideInputError = (element) => {
-    element.classList.remove('popup__input_type_error');
-    inputError.classList.remove('popup__input-error_type_active');
-    inputError.textContent = '';
+const hideInputError = (formElement, inputElement) => {
+    const errorElement = formElement.querySelector(`.${inputElement.name}-input-error`);
+    inputElement.classList.remove('popup__input_type_error');
+    errorElement.classList.remove('popup__input-error_type_active');
+    errorElement.textContent = '';
 }
 
-const checkInputValidity = () => {
+const checkInputValidity = (formElement, inputElement) => {
     if(inputElement.validity.valid) {
-        hideInputError(inputElement);
+        hideInputError(formElement, inputElement);
     } else {
-        showInputError(inputElement, inputElement.validationMessage);
+        showInputError(formElement, inputElement, inputElement.validationMessage);
     }
 }
 
-formElement.addEventListener('submit', function (evt) {
+form.addEventListener('submit', function (evt) {
     evt.preventDefault();
 });
 
-inputElement.addEventListener('input', function () {
-    checkInputValidity();
+formInput.addEventListener('input', function () {
+    checkInputValidity(form, formInput);
 });
+
+const setEventListeners = (formElement) => {
+    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+    inputList.forEach(function(inputElement) {
+        inputElement.addEventListener('input', function() {
+            checkInputValidity(formElement, inputElement);
+        });
+    })
+}
+
+setEventListeners(form);
 
