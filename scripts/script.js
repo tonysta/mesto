@@ -72,6 +72,8 @@ function removeCard(event) {
 }
 
 function openPopup(popupVersion) {
+  document.addEventListener("keydown", keyHandler);
+  document.addEventListener("mousedown", overlayHandler);
   popupVersion.classList.add("popup_type_active");
 }
 
@@ -83,6 +85,8 @@ function presetProfile() {
 }
 
 function closePopup(currentPopup) {
+  document.removeEventListener("keydown", keyHandler);
+  document.removeEventListener("mousedown", overlayHandler);
   currentPopup.classList.remove("popup_type_active");
 }
 
@@ -93,6 +97,18 @@ function submitProfileForm(event) {
   profileProfession.textContent = popupProfession.value;
 
   closePopup(popupProfile);
+}
+
+function overlayHandler(event) {
+  if (event.target === event.target.closest(".popup")) {
+    closePopup(event.target.closest(".popup"));
+  }
+}
+
+function keyHandler(event) {
+  if (event.key === "Escape") {
+    closePopup(document.querySelector(".popup_type_active"));
+  }
 }
 
 profileForm.addEventListener("submit", submitProfileForm);
