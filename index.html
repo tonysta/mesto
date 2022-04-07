@@ -35,19 +35,25 @@
       <div class="popup popup_section_profile">
         <div class="popup__container">
           <button type="button" class="popup__close-btn"></button>
-          <form name="profile" class="popup__form popup__form_type_profile">
+          <form name="profile" class="popup__form popup__form_type_profile" novalidate>
             <h2 class="popup__title">Редактировать профиль</h2>
             <input
               type="text"
               name="name"
               placeholder="Иван Иванов"
               class="popup__input popup__input_type_name"
+              required
+              minlength="2"
+              maxlength="40"
             />
             <input
               type="text"
               name="profession"
               placeholder="Инженер"
               class="popup__input popup__input_type_profession"
+              required
+              minlength="2"
+              maxlength="200"
             />
             <button type="submit" class="popup__submit">Сохранить</button>
           </form>
@@ -56,19 +62,23 @@
       <div class="popup popup_section_card">
         <div class="popup__container">
           <button type="button" class="popup__close-btn"></button>
-          <form name="card" class="popup__form popup__form_type_card">
+          <form name="card" class="popup__form popup__form_type_card" novalidate>
             <h2 class="popup__title">Новое место</h2>
             <input
               type="text"
               placeholder="Название"
               name="card_name"
               class="popup__input popup__input_type_name"
+              required
+              minlength="1"
+              maxlength="30"
             />
             <input
-              type="text"
+              type="url"
               placeholder="Ссылка на картинку"
               name="link"
               class="popup__input popup__input_type_link"
+              required
             />
             <button type="submit" class="popup__submit">Создать</button>
           </form>
@@ -100,5 +110,6 @@
     </template>
     <script src="./scripts/cards.js"></script>
     <script src="./scripts/script.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>
