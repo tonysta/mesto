@@ -16,10 +16,11 @@ const addCardBtn = document.querySelector(".profile__add-btn");
 const cardName = popupCard.querySelector(".popup__input_type_name");
 const cardLink = popupCard.querySelector(".popup__input_type_link");
 
+const popupSubmit = popupCard.querySelector('.popup__submit');
+const cardTemplate = document.querySelector(".card__template");
+
 function createCard(element) {
-  const cardNode = document
-    .querySelector(".card__template")
-    .content.firstElementChild.cloneNode(true);
+  const cardNode = cardTemplate.content.cloneNode(true);
 
   cardNode.querySelector(".card__title").textContent = element.name;
   cardNode.querySelector(".card__img").src = element.link;
@@ -61,9 +62,14 @@ function addCard(event) {
   event.preventDefault();
   renderCard({ name: cardName.value, link: cardLink.value });
   closePopup(popupCard);
-
   cardName.value = "";
   cardLink.value = "";
+  resetButton();
+}
+
+function resetButton() {
+  popupSubmit.classList.add('popup__submit_type_inactive');
+  popupSubmit.disabled = true;
 }
 
 function removeCard(event) {
@@ -73,7 +79,7 @@ function removeCard(event) {
 
 function openPopup(popupVersion) {
   document.addEventListener("keydown", keyHandler);
-  document.addEventListener("mousedown", overlayHandler);
+  popupVersion.addEventListener("mousedown", overlayHandler);
   popupVersion.classList.add("popup_type_active");
 }
 
