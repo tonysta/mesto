@@ -48,8 +48,7 @@ function renderCard(cardData) {
 
 function openViewer(event) {
   const viewerImg = event.target.src;
-  const viewerTitle =
-    event.target.nextElementSibling.firstElementChild.textContent;
+  const viewerTitle = event.target.alt;
 
   viewer.querySelector(".viewer__img").src = viewerImg;
   viewer.querySelector(".viewer__img").alt = viewerTitle;
@@ -92,7 +91,7 @@ function presetProfile() {
 
 function closePopup(currentPopup) {
   document.removeEventListener("keydown", keyHandler);
-  document.removeEventListener("mousedown", overlayHandler);
+  currentPopup.removeEventListener("mousedown", overlayHandler);
   currentPopup.classList.remove("popup_type_active");
 }
 
