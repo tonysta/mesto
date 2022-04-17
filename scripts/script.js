@@ -18,7 +18,7 @@ const cardLink = popupCard.querySelector(".popup__input_type_link");
 
 const popupSubmit = popupCard.querySelector('.popup__submit');
 const cardTemplate = document.querySelector(".card__template");
-
+/*
 function createCard(element) {
   const cardNode = cardTemplate.content.cloneNode(true);
 
@@ -45,6 +45,7 @@ function renderCard(cardData) {
   const card = createCard(cardData);
   cardContainer.prepend(card);
 }
+*/
 
 function openViewer(event) {
   const viewerImg = event.target.src;
@@ -126,4 +127,4 @@ viewer
 addCardBtn.addEventListener("click", () => openPopup(popupCard));
 cardForm.addEventListener("submit", addCard);
 
-initialCards.forEach(renderCard);
+// initialCards.forEach(renderCard);
