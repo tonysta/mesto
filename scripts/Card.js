@@ -1,14 +1,19 @@
 import {openViewer, removeCard} from "./index.js";
 
 export default class Card {
-    static _cardTemplate = document.querySelector(".card__template").content;
-
-    constructor(data) {
+    constructor(data, cardSelector) {
         this._name = data.name;
         this._link = data.link;
+        this._cardSelector = cardSelector;
     }
     _getTemplate() {
-        return Card._cardTemplate.cloneNode(true);
+        const cardElement = document
+            .querySelector(this._cardSelector)
+            .content
+            .querySelector('.card')
+            .cloneNode(true);
+
+        return cardElement;
     }
     generateCard() {
         this._element = this._getTemplate();

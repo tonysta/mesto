@@ -132,7 +132,7 @@ cardForm.addEventListener("submit", addCard);
 // initialCards.forEach(renderCard);
 
 function renderCard(data) {
-  const card = new Card(data);
+  const card = new Card(data, ".card__template");
   const cardElement = card.generateCard();
   cardContainer.prepend(cardElement);
 }
