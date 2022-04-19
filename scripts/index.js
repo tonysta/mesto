@@ -12,7 +12,7 @@ const popupName = document.querySelector(".popup__input_type_name");
 const popupProfession = document.querySelector(".popup__input_type_profession");
 const profileName = document.querySelector(".profile__name");
 const profileProfession = document.querySelector(".profile__profession");
-// const cardContainer = document.querySelector(".cards-container");
+const cardContainer = document.querySelector(".cards-container");
 const addCardBtn = document.querySelector(".profile__add-btn");
 
 const cardName = popupCard.querySelector(".popup__input_type_name");
@@ -131,7 +131,12 @@ cardForm.addEventListener("submit", addCard);
 
 // initialCards.forEach(renderCard);
 
+function renderCard(data) {
+  const card = new Card(data);
+  const cardElement = card.generateCard();
+  cardContainer.prepend(cardElement);
+}
+
 initialCards.forEach((item) => {
-  const card = new Card(item);
-  card.renderCard();
+  renderCard(item);
 });

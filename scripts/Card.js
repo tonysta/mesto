@@ -2,7 +2,6 @@ import {openViewer, removeCard} from "./index.js";
 
 export default class Card {
     static _cardTemplate = document.querySelector(".card__template").content;
-    static _cardContainer = document.querySelector(".cards-container");
 
     constructor(data) {
         this._name = data.name;
@@ -11,7 +10,7 @@ export default class Card {
     _getTemplate() {
         return Card._cardTemplate.cloneNode(true);
     }
-    _generateCard() {
+    generateCard() {
         this._element = this._getTemplate();
         this._setEventListeners();
 
@@ -29,10 +28,6 @@ export default class Card {
         this._element.querySelector(".card__img").addEventListener("click", openViewer);
 
         this._element.querySelector(".card__trash-btn").addEventListener("click", removeCard);
-    }
-    renderCard() {
-        const card = this._generateCard();
-        Card._cardContainer.prepend(card);
     }
 }
 
