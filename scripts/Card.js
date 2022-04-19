@@ -1,10 +1,15 @@
-class Card {
+import {openViewer, removeCard} from "./index.js";
+
+export default class Card {
+    static _cardTemplate = document.querySelector(".card__template").content;
+    static _cardContainer = document.querySelector(".cards-container");
+
     constructor(data) {
         this._name = data.name;
         this._link = data.link;
     }
     _getTemplate() {
-        return cardTemplate.content.cloneNode(true);
+        return Card._cardTemplate.cloneNode(true);
     }
     _generateCard() {
         this._element = this._getTemplate();
@@ -27,11 +32,7 @@ class Card {
     }
     renderCard() {
         const card = this._generateCard();
-        cardContainer.prepend(card);
+        Card._cardContainer.prepend(card);
     }
 }
 
-initialCards.forEach((item) => {
-    const card = new Card(item);
-    card.renderCard();
-});

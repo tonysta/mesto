@@ -62,11 +62,11 @@ const enableValidation = ({formSelector, inputSelector, submitButtonSelector, in
     })
 }
 
-enableValidation({
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__submit',
-    inactiveButtonClass: 'popup__submit_type_inactive',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__input-error_type_active'
-});
+// enableValidation({
+//     formSelector: '.popup__form',
+//     inputSelector: '.popup__input',
+//     submitButtonSelector: '.popup__submit',
+//     inactiveButtonClass: 'popup__submit_type_inactive',
+//     inputErrorClass: 'popup__input_type_error',
+//     errorClass: 'popup__input-error_type_active'
+// });
