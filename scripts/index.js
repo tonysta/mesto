@@ -3,7 +3,9 @@ import Card from './Card.js';
 const profileEditBtn = document.querySelector(".profile__edit-btn");
 const popupProfile = document.querySelector(".popup_section_profile");
 const popupCard = document.querySelector(".popup_section_card");
-const viewer = document.querySelector(".viewer");
+export const viewer = document.querySelector(".viewer");
+export const viewerImg = document.querySelector(".viewer__img");
+export const viewerTitle = document.querySelector(".viewer__title");
 const closePopupBtn = document.querySelector(".popup__close-btn");
 const closePopupBtnCard = popupCard.querySelector(".popup__close-btn");
 const profileForm = document.querySelector(".popup__form_type_profile");
@@ -49,16 +51,16 @@ function renderCard(cardData) {
 }
 */
 
-export function openViewer(event) {
-  const viewerImg = event.target.src;
-  const viewerTitle = event.target.alt;
-
-  viewer.querySelector(".viewer__img").src = viewerImg;
-  viewer.querySelector(".viewer__img").alt = viewerTitle;
-  viewer.querySelector(".viewer__title").textContent = viewerTitle;
-
-  openPopup(viewer);
-}
+// export function openViewer(event) {
+//   const viewerImg = event.target.src;
+//   const viewerTitle = event.target.alt;
+//
+//   viewer.querySelector(".viewer__img").src = viewerImg;
+//   viewer.querySelector(".viewer__img").alt = viewerTitle;
+//   viewer.querySelector(".viewer__title").textContent = viewerTitle;
+//
+//   openPopup(viewer);
+// }
 
 function addCard(event) {
   event.preventDefault();
@@ -79,7 +81,7 @@ export function removeCard(event) {
   cardItem.remove();
 }
 
-function openPopup(popupVersion) {
+export function openPopup(popupVersion) {
   document.addEventListener("keydown", keyHandler);
   popupVersion.addEventListener("mousedown", overlayHandler);
   popupVersion.classList.add("popup_type_active");

@@ -1,4 +1,4 @@
-import {openViewer, removeCard} from "./index.js";
+import {openPopup, removeCard, viewer, viewerTitle, viewerImg} from "./index.js";
 
 export default class Card {
     constructor(data, cardSelector) {
@@ -30,9 +30,18 @@ export default class Card {
             .addEventListener("click", function (event) {
                 event.target.classList.toggle("card__like-btn_active");
             });
-        this._element.querySelector(".card__img").addEventListener("click", openViewer);
+        this._element.querySelector(".card__img").addEventListener("click", () => {
+            this._viewerHandler();
+        });
 
         this._element.querySelector(".card__trash-btn").addEventListener("click", removeCard);
+    }
+    _viewerHandler = () => {
+        viewerImg.src = this._link;
+        viewerImg.alt = this._name;
+        viewerTitle.textContent = this._name;
+
+        openPopup(viewer);
     }
 }
 
