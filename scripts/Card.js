@@ -1,4 +1,4 @@
-import {openPopup, removeCard, viewer, viewerTitle, viewerImg} from "./index.js";
+import {openPopup, viewer, viewerTitle, viewerImg} from "./index.js";
 
 export default class Card {
     constructor(data, cardSelector) {
@@ -34,7 +34,9 @@ export default class Card {
             this._viewerHandler();
         });
 
-        this._element.querySelector(".card__trash-btn").addEventListener("click", removeCard);
+        this._element.querySelector(".card__trash-btn").addEventListener("click", () => {
+            this._removeHandler();
+        });
     }
     _viewerHandler = () => {
         viewerImg.src = this._link;
@@ -42,6 +44,9 @@ export default class Card {
         viewerTitle.textContent = this._name;
 
         openPopup(viewer);
+    }
+    _removeHandler = () => {
+        this._element.remove();
     }
 }
 

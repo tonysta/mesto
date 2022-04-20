@@ -76,10 +76,10 @@ function resetButton() {
   popupSubmit.disabled = true;
 }
 
-export function removeCard(event) {
-  const cardItem = event.target.closest(".card");
-  cardItem.remove();
-}
+// export function removeCard(event) {
+//   const cardItem = event.target.closest(".card");
+//   cardItem.remove();
+// }
 
 export function openPopup(popupVersion) {
   document.addEventListener("keydown", keyHandler);
