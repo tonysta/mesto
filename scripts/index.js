@@ -33,47 +33,6 @@ const validationSettings = {
   errorClass: 'popup__input-error_type_active'
 };
 
-// const cardTemplate = document.querySelector(".card__template");
-/*
-function createCard(element) {
-  const cardNode = cardTemplate.content.cloneNode(true);
-
-  cardNode.querySelector(".card__title").textContent = element.name;
-  cardNode.querySelector(".card__img").src = element.link;
-  cardNode.querySelector(".card__img").alt = element.name;
-
-  cardNode
-    .querySelector(".card__like-btn")
-    .addEventListener("click", function (event) {
-      event.target.classList.toggle("card__like-btn_active");
-    });
-
-  cardNode.querySelector(".card__img").addEventListener("click", openViewer);
-
-  cardNode
-    .querySelector(".card__trash-btn")
-    .addEventListener("click", removeCard);
-
-  return cardNode;
-}
-
-function renderCard(cardData) {
-  const card = createCard(cardData);
-  cardContainer.prepend(card);
-}
-*/
-
-// export function openViewer(event) {
-//   const viewerImg = event.target.src;
-//   const viewerTitle = event.target.alt;
-//
-//   viewer.querySelector(".viewer__img").src = viewerImg;
-//   viewer.querySelector(".viewer__img").alt = viewerTitle;
-//   viewer.querySelector(".viewer__title").textContent = viewerTitle;
-//
-//   openPopup(viewer);
-// }
-
 function addCard(event) {
   event.preventDefault();
   renderCard({ name: cardName.value, link: cardLink.value });
@@ -88,16 +47,12 @@ function resetButton() {
   popupSubmit.disabled = true;
 }
 
-// export function removeCard(event) {
-//   const cardItem = event.target.closest(".card");
-//   cardItem.remove();
-// }
-
 export function openPopup(popupVersion) {
   const validator = new FormValidator(validationSettings, popupVersion);
   validator.enableValidation();
 
   document.addEventListener("keydown", keyHandler);
+
   popupVersion.addEventListener("mousedown", overlayHandler);
   popupVersion.classList.add("popup_type_active");
 }
@@ -145,8 +100,6 @@ viewer
   .addEventListener("click", () => closePopup(viewer));
 addCardBtn.addEventListener("click", () => openPopup(popupCard));
 cardForm.addEventListener("submit", addCard);
-
-// initialCards.forEach(renderCard);
 
 function renderCard(data) {
   const card = new Card(data, ".card__template");
