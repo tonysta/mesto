@@ -1,4 +1,6 @@
 import Card from './Card.js';
+import FormValidator from "./FormValidator.js";
+import {initialCards} from "./cards.js";
 
 const profileEditBtn = document.querySelector(".profile__edit-btn");
 const popupProfile = document.querySelector(".popup_section_profile");
@@ -21,6 +23,16 @@ const cardName = popupCard.querySelector(".popup__input_type_name");
 const cardLink = popupCard.querySelector(".popup__input_type_link");
 
 const popupSubmit = popupCard.querySelector('.popup__submit');
+
+const validationSettings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_type_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_type_active'
+};
+
 // const cardTemplate = document.querySelector(".card__template");
 /*
 function createCard(element) {
@@ -82,6 +94,9 @@ function resetButton() {
 // }
 
 export function openPopup(popupVersion) {
+  const validator = new FormValidator(validationSettings, popupVersion);
+  validator.enableValidation();
+
   document.addEventListener("keydown", keyHandler);
   popupVersion.addEventListener("mousedown", overlayHandler);
   popupVersion.classList.add("popup_type_active");
