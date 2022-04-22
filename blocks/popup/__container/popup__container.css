@@ -8,7 +8,7 @@
   background-color: rgb(255, 255, 255);
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 435px) {
   .popup__container {
     width: 282px;
   }
