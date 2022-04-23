@@ -98,12 +98,6 @@ viewer
 addCardBtn.addEventListener("click", () => openPopup(popupCard));
 cardForm.addEventListener("submit", addCard);
 
-// function renderCard(data) {
-//   const card = new Card(data, ".card__template");
-//   const cardElement = card.generateCard();
-//   cardContainer.prepend(cardElement);
-// }
-
 function renderCard(data) {
   cardContainer.prepend(createCard(data));
 }
