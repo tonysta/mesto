@@ -33,28 +33,25 @@ const validationSettings = {
   errorClass: 'popup__input-error_type_active'
 };
 
+const profileValidation = new FormValidator(validationSettings, profileForm);
+const newCardValidation = new FormValidator(validationSettings, cardForm);
+
+profileValidation.enableValidation();
+newCardValidation.enableValidation();
+
 function addCard(event) {
   event.preventDefault();
   renderCard({ name: cardName.value, link: cardLink.value });
   closePopup(popupCard);
-  cardName.value = "";
-  cardLink.value = "";
-  resetButton();
-}
-
-function resetButton() {
-  popupSubmit.classList.add('popup__submit_type_inactive');
-  popupSubmit.disabled = true;
+  event.target.closest('.popup__form_type_card').reset();
 }
 
 export function openPopup(popupVersion) {
-  const validator = new FormValidator(validationSettings, popupVersion);
-  validator.enableValidation();
-
   document.addEventListener("keydown", keyHandler);
 
   popupVersion.addEventListener("mousedown", overlayHandler);
   popupVersion.classList.add("popup_type_active");
+  newCardValidation.toggleButtonState();
 }
 
 function presetProfile() {

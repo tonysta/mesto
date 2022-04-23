@@ -3,26 +3,21 @@ export default class FormValidator {
         this._form = form;
         this._data = data;
         this._inputList = Array.from(this._form.querySelectorAll(this._data.inputSelector));
+        this._buttonElement = this._form.querySelector(this._data.submitButtonSelector);
     }
     enableValidation = () => {
         this._form.addEventListener('submit', function(evt) {
             evt.preventDefault();
         })
 
-        if (!this._form.classList.contains('viewer')) {
-            this._toggleButtonState();
-        }
-
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._checkInputValidity(inputElement);
-                this._toggleButtonState();
+                this.toggleButtonState();
             });
         });
     }
-    _toggleButtonState = () => {
-        this._buttonElement = this._form.querySelector(this._data.submitButtonSelector);
-
+    toggleButtonState = () => {
         if (this._hasInvalidInput(this._inputList)) {
             this._buttonElement.classList.add(this._data.inactiveButtonClass);
             this._buttonElement.disabled = true;
