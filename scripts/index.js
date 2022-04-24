@@ -43,7 +43,7 @@ function addCard(event) {
   event.preventDefault();
   renderCard({ name: cardName.value, link: cardLink.value });
   closePopup(popupCard);
-  event.target.closest('.popup__form_type_card').reset();
+  cardForm.reset();
 }
 
 export function openPopup(popupVersion) {
@@ -51,7 +51,6 @@ export function openPopup(popupVersion) {
 
   popupVersion.addEventListener("mousedown", overlayHandler);
   popupVersion.classList.add("popup_type_active");
-  newCardValidation.toggleButtonState();
 }
 
 function presetProfile() {
@@ -95,7 +94,10 @@ closePopupBtnCard.addEventListener("click", () => closePopup(popupCard));
 viewer
   .querySelector(".popup__close-btn")
   .addEventListener("click", () => closePopup(viewer));
-addCardBtn.addEventListener("click", () => openPopup(popupCard));
+addCardBtn.addEventListener("click", () => {
+  newCardValidation.toggleButtonState();
+  openPopup(popupCard);
+});
 cardForm.addEventListener("submit", addCard);
 
 function renderCard(data) {
