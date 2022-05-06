@@ -1,5 +1,6 @@
 import Card from './Card.js';
 import FormValidator from "./FormValidator.js";
+import Section from "./Section.js";
 import {initialCards} from "./cards.js";
 
 const profileEditBtn = document.querySelector(".profile__edit-btn");
@@ -16,7 +17,7 @@ const popupName = document.querySelector(".popup__input_type_name");
 const popupProfession = document.querySelector(".popup__input_type_profession");
 const profileName = document.querySelector(".profile__name");
 const profileProfession = document.querySelector(".profile__profession");
-const cardContainer = document.querySelector(".cards-container");
+const cardContainer = ".cards-container";
 const addCardBtn = document.querySelector(".profile__add-btn");
 
 const cardName = popupCard.querySelector(".popup__input_type_name");
@@ -101,12 +102,23 @@ viewer
 addCardBtn.addEventListener("click", () => openPopup(popupCard));
 cardForm.addEventListener("submit", addCard);
 
-function renderCard(data) {
-  const card = new Card(data, ".card__template");
-  const cardElement = card.generateCard();
-  cardContainer.prepend(cardElement);
-}
+// function renderCard(data) {
+//   const card = new Card(data, ".card__template");
+//   const cardElement = card.generateCard();
+//   cardContainer.prepend(cardElement);
+// }
+//
+// initialCards.forEach((item) => {
+//   renderCard(item);
+// });
 
-initialCards.forEach((item) => {
-  renderCard(item);
-});
+const cardList = new Section({
+  data: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, ".card__template");
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+  }
+}, cardContainer);
+
+cardList.renderItems();
