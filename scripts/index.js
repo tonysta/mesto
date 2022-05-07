@@ -113,7 +113,7 @@ cardForm.addEventListener("submit", addCard);
 // });
 
 const cardList = new Section({
-  data: initialCards,
+  items: initialCards,
   renderer: (item) => {
     const card = new Card(item, ".card__template");
     const cardElement = card.generateCard();
