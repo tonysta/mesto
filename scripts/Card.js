@@ -1,4 +1,4 @@
-import {viewer, viewerTitle, viewerImg} from "./index.js";
+import {viewerTitle, viewerImg} from "./index.js";
 
 export default class Card {
     constructor(data, cardSelector, handleCardClick) {

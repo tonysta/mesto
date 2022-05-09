@@ -9,7 +9,13 @@ export default class Popup {
         this._popupSelector.classList.remove("popup_type_active");
     }
     _handleEscClose() {
+
     }
     setEventListeners() {
+        this._popupSelector.addEventListener('click', (event) => {
+            if (event.target.classList.contains("popup__close-btn")) {
+                this.close();
+            }
+        })
     }
 }
