@@ -1,7 +1,10 @@
 import Card from './Card.js';
 import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
+import Popup from "./Popup.js";
 import {initialCards} from "./cards.js";
+import PopupWithForm from "./PopupWithForm.js";
+import PopupWithImage from "./PopupWithImage.js";
 
 const profileEditBtn = document.querySelector(".profile__edit-btn");
 const popupProfile = document.querySelector(".popup_section_profile");
@@ -23,7 +26,7 @@ const addCardBtn = document.querySelector(".profile__add-btn");
 const cardName = popupCard.querySelector(".popup__input_type_name");
 const cardLink = popupCard.querySelector(".popup__input_type_link");
 
-const popupSubmit = popupCard.querySelector('.popup__submit');
+// const popupSubmit = popupCard.querySelector('.popup__submit');
 
 const validationSettings = {
   formSelector: '.popup__form',
@@ -34,29 +37,24 @@ const validationSettings = {
   errorClass: 'popup__input-error_type_active'
 };
 
+const profileValidation = new FormValidator(validationSettings, profileForm);
+const newCardValidation = new FormValidator(validationSettings, cardForm);
+
+profileValidation.enableValidation();
+newCardValidation.enableValidation();
+
 function addCard(event) {
   event.preventDefault();
   renderCard({ name: cardName.value, link: cardLink.value });
   closePopup(popupCard);
-  cardName.value = "";
-  cardLink.value = "";
-  resetButton();
+  cardForm.reset();
 }
 
-function resetButton() {
-  popupSubmit.classList.add('popup__submit_type_inactive');
-  popupSubmit.disabled = true;
-}
-
-export function openPopup(popupVersion) {
-  const validator = new FormValidator(validationSettings, popupVersion);
-  validator.enableValidation();
-
-  document.addEventListener("keydown", keyHandler);
-
-  popupVersion.addEventListener("mousedown", overlayHandler);
-  popupVersion.classList.add("popup_type_active");
-}
+// export function openPopup(popupVersion) {
+//   document.addEventListener("keydown", keyHandler);
+//   popupVersion.addEventListener("mousedown", overlayHandler);
+//   popupVersion.classList.add("popup_type_active");
+// }
 
 function presetProfile() {
   popupName.value = `${profileName.textContent}`;
@@ -93,13 +91,28 @@ function keyHandler(event) {
 }
 
 profileForm.addEventListener("submit", submitProfileForm);
-profileEditBtn.addEventListener("click", presetProfile);
 closePopupBtn.addEventListener("click", () => closePopup(popupProfile));
 closePopupBtnCard.addEventListener("click", () => closePopup(popupCard));
 viewer
   .querySelector(".popup__close-btn")
   .addEventListener("click", () => closePopup(viewer));
-addCardBtn.addEventListener("click", () => openPopup(popupCard));
+
+// profileEditBtn.addEventListener("click", presetProfile);
+// addCardBtn.addEventListener("click", () => openPopup(popupCard));
+profileEditBtn.addEventListener("click", () => {
+  const openProfilePopup = new PopupWithForm(popupProfile);
+  openProfilePopup.open();
+});
+addCardBtn.addEventListener("click", () => {
+  const openCardPopup = new PopupWithForm(popupCard);
+  openCardPopup.open();
+});
+
+const openViewerPopup = new PopupWithImage(viewer);
+const handleCardClick = (name, link) => {
+  openViewerPopup.open();
+};
+
 cardForm.addEventListener("submit", addCard);
 
 // function renderCard(data) {
@@ -115,7 +128,7 @@ cardForm.addEventListener("submit", addCard);
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, ".card__template");
+    const card = new Card(item, ".card__template", handleCardClick);
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);
   }

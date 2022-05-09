@@ -1,10 +1,11 @@
-import {openPopup, viewer, viewerTitle, viewerImg} from "./index.js";
+import {viewer, viewerTitle, viewerImg} from "./index.js";
 
 export default class Card {
-    constructor(data, cardSelector) {
+    constructor(data, cardSelector, handleCardClick) {
         this._name = data.name;
         this._link = data.link;
         this._cardSelector = cardSelector;
+        this.handleCardClick = handleCardClick;
     }
     _getTemplate() {
         return document
@@ -42,7 +43,7 @@ export default class Card {
         viewerImg.alt = this._name;
         viewerTitle.textContent = this._name;
 
-        openPopup(viewer);
+        this.handleCardClick(this._name, this._link);
     }
     _removeHandler = () => {
         this._element.remove();
