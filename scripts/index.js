@@ -49,6 +49,7 @@ profileEditBtn.addEventListener("click", () => {
 });
 addCardBtn.addEventListener("click", () => {
   const openCardPopup = new PopupWithForm(".popup_section_card", (cardData) => section.addItem(renderCard(cardData)));
+  newCardValidation.toggleButtonState();
   openCardPopup.open();
   openCardPopup.setEventListeners();
 });
