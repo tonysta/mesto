@@ -9,13 +9,13 @@ import UserInfo from "./UserInfo.js";
 const profileEditBtn = document.querySelector(".profile__edit-btn");
 const popupProfile = document.querySelector(".popup_section_profile");
 const popupCard = document.querySelector(".popup_section_card");
-export const viewer = document.querySelector(".viewer");
-// export const viewerImg = document.querySelector(".viewer__img");
-// export const viewerTitle = document.querySelector(".viewer__title");
+const viewer = document.querySelector(".viewer");
+const viewerImg = document.querySelector(".viewer__img");
+const viewerTitle = document.querySelector(".viewer__title");
 // const closePopupBtn = document.querySelector(".popup__close-btn");
 // const closePopupBtnCard = popupCard.querySelector(".popup__close-btn");
 const profileForm = document.querySelector(".popup__form_type_profile");
-// const cardForm = document.querySelector(".popup__form_type_card");
+const cardForm = document.querySelector(".popup__form_type_card");
 const popupName = document.querySelector(".popup__input_type_name");
 const popupProfession = document.querySelector(".popup__input_type_profession");
 // const profileName = document.querySelector(".profile__name");
@@ -64,9 +64,9 @@ addCardBtn.addEventListener("click", () => {
   openCardPopup.open();
   openCardPopup.setEventListeners();
 });
-const openViewerPopup = new PopupWithImage(viewer);
-const handleCardClick = (name, link) => {
-  openViewerPopup.open();
+const openViewerPopup = new PopupWithImage(viewer, viewerImg, viewerTitle);
+const handleCardClick = (link, name) => {
+  openViewerPopup.open(link, name);
 };
 openViewerPopup.setEventListeners();
 

@@ -1,4 +1,4 @@
-import {viewerTitle, viewerImg} from "./index.js";
+// import {viewerTitle, viewerImg} from "./index.js";
 
 export default class Card {
     constructor(data, cardSelector, handleCardClick) {
@@ -39,11 +39,11 @@ export default class Card {
         });
     }
     _viewerHandler = () => {
-        viewerImg.src = this._link;
-        viewerImg.alt = this._name;
-        viewerTitle.textContent = this._name;
+        // viewerImg.src = this._link;
+        // viewerImg.alt = this._name;
+        // viewerTitle.textContent = this._name;
 
-        this.handleCardClick(this._name, this._link);
+        this.handleCardClick(this._link, this._name);
     }
     _removeHandler = () => {
         this._element.remove();
