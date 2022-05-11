@@ -50,7 +50,7 @@ const handleFormSubmit = (data) => {
 }
 
 profileEditBtn.addEventListener("click", () => {
-  const openProfilePopup = new PopupWithForm(popupProfile, handleFormSubmit);
+  const openProfilePopup = new PopupWithForm(".popup_section_profile", handleFormSubmit);
 
   const getUserInfo = userInfo.getUserInfo();
   popupName.value = getUserInfo.name;
@@ -60,23 +60,25 @@ profileEditBtn.addEventListener("click", () => {
   openProfilePopup.setEventListeners();
 });
 addCardBtn.addEventListener("click", () => {
-  const openCardPopup = new PopupWithForm(popupCard);
+  const openCardPopup = new PopupWithForm(".popup_section_card", (cardData) => cardList.addItem(renderCard(cardData)));
   openCardPopup.open();
   openCardPopup.setEventListeners();
 });
-const openViewerPopup = new PopupWithImage(viewer, viewerImg, viewerTitle);
+const openViewerPopup = new PopupWithImage(".viewer", viewerImg, viewerTitle);
 const handleCardClick = (link, name) => {
   openViewerPopup.open(link, name);
 };
 openViewerPopup.setEventListeners();
 
+const renderCard = (cardData) => {
+  const card = new Card(cardData, ".card__template", handleCardClick);
+  const cardElement = card.generateCard();
+  return cardElement;
+};
+
 const cardList = new Section({
   items: initialCards,
-  renderer: (item) => {
-    const card = new Card(item, ".card__template", handleCardClick);
-    const cardElement = card.generateCard();
-    cardList.addItem(cardElement);
-  }
+  renderer: renderCard
 }, cardContainer);
 
 cardList.renderItems();
