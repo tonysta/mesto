@@ -3,20 +3,18 @@ import './index.css';
 import Card from '../components/Card.js';
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
-import {initialCards} from "../components/cards.js";
+import {initialCards} from "../utils/cards.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 
 const profileEditBtn = document.querySelector(".profile__edit-btn");
-const viewerImg = document.querySelector(".viewer__img");
-const viewerTitle = document.querySelector(".viewer__title");
 const profileForm = document.querySelector(".popup__form_type_profile");
 const cardForm = document.querySelector(".popup__form_type_card");
 const popupName = document.querySelector(".popup__input_type_name");
 const popupProfession = document.querySelector(".popup__input_type_profession");
 const cardContainer = ".cards-container";
-const addCardBtn = document.querySelector(".profile__add-btn");
+const cardBtnElement = document.querySelector(".profile__add-btn");
 
 const validationSettings = {
   formSelector: '.popup__form',
@@ -33,29 +31,31 @@ const newCardValidation = new FormValidator(validationSettings, cardForm);
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
 
-const userInfo = new UserInfo({name: ".profile__name", profession: ".profile__profession"});
+const userInfo = new UserInfo({nameSelector: ".profile__name", professionSelector: ".profile__profession"});
 
-const handleFormSubmit = (data) => {
+const handleProfileFormSubmit = (data) => {
   userInfo.setUserInfo(data);
 }
 
 profileEditBtn.addEventListener("click", () => {
-  const openProfilePopup = new PopupWithForm(".popup_section_profile", handleFormSubmit);
-
   const getUserInfo = userInfo.getUserInfo();
   popupName.value = getUserInfo.name;
   popupProfession.value = getUserInfo.profession;
 
   openProfilePopup.open();
-  openProfilePopup.setEventListeners();
 });
-addCardBtn.addEventListener("click", () => {
-  const openCardPopup = new PopupWithForm(".popup_section_card", (cardData) => section.addItem(renderCard(cardData)));
+
+const openProfilePopup = new PopupWithForm(".popup_section_profile", handleProfileFormSubmit);
+openProfilePopup.setEventListeners();
+
+cardBtnElement.addEventListener("click", () => {
   newCardValidation.toggleButtonState();
   openCardPopup.open();
-  openCardPopup.setEventListeners();
 });
-const openViewerPopup = new PopupWithImage(".viewer", viewerImg, viewerTitle);
+const openCardPopup = new PopupWithForm(".popup_section_card", (cardData) => section.addItem(renderCard(cardData)));
+openCardPopup.setEventListeners();
+
+const openViewerPopup = new PopupWithImage(".viewer", ".viewer__img", ".viewer__title");
 const handleCardClick = (link, name) => {
   openViewerPopup.open(link, name);
 };
