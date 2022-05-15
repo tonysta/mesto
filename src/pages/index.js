@@ -52,7 +52,7 @@ cardBtnElement.addEventListener("click", () => {
   newCardValidation.toggleButtonState();
   openCardPopup.open();
 });
-const openCardPopup = new PopupWithForm(".popup_section_card", (cardData) => renderCard(cardData));
+const openCardPopup = new PopupWithForm(".popup_section_card", (cardData) => section.addItem(renderCard(cardData)));
 openCardPopup.setEventListeners();
 
 const openViewerPopup = new PopupWithImage(".viewer", ".viewer__img", ".viewer__title");
@@ -63,13 +63,12 @@ openViewerPopup.setEventListeners();
 
 const renderCard = (cardData) => {
   const card = new Card(cardData, ".card__template", handleCardClick);
-  const cardElement = card.generateCard();
-  section.addItem(cardElement);
+  return card.generateCard();
 };
 
 const section = new Section({
   items: initialCards,
-  renderer: renderCard
+  renderer: (cardData) => section.addItem(renderCard(cardData))
 }, cardContainer);
 
 section.renderItems();
