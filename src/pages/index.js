@@ -7,6 +7,7 @@ import {initialCards} from "../utils/cards.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 
 const profileEditBtn = document.querySelector(".profile__edit-btn");
 const profileForm = document.querySelector(".popup__form_type_profile");
@@ -31,7 +32,22 @@ const newCardValidation = new FormValidator(validationSettings, cardForm);
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
 
-const userInfo = new UserInfo({nameSelector: ".profile__name", professionSelector: ".profile__profession"});
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-41/users/me',
+  headers: {
+    'authorization': '8357035a-bce9-4448-9840-71df6831b184',
+    'content-type': 'application/json'
+  }
+})
+const userInfoApi = api.getProfileInfo();
+userInfoApi.then((apiData) => {
+  const userInfo = new UserInfo({nameSelector: ".profile__name", professionSelector: ".profile__profession", avatarSelector: ".profile__avatar"});
+  userInfo.setUserInfo(apiData);
+}).catch((err) => {
+  alert(err);
+})
+
+const userInfo = new UserInfo({nameSelector: ".profile__name", professionSelector: ".profile__profession", avatarSelector: "profile__avatar"});
 
 const handleProfileFormSubmit = (data) => {
   userInfo.setUserInfo(data);
