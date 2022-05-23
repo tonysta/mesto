@@ -71,7 +71,15 @@ cardBtnElement.addEventListener("click", () => {
   newCardValidation.toggleButtonState();
   openCardPopup.open();
 });
-const openCardPopup = new PopupWithForm(".popup_section_card", (cardData) => section.addItem(renderCard(cardData)));
+
+const handleCardFormSubmit = (data) => {
+  const newCard = api.addCard(data);
+  newCard.then((cardData) => {
+    section.addItem(renderCard(cardData));
+  })
+}
+
+const openCardPopup = new PopupWithForm(".popup_section_card", handleCardFormSubmit);
 openCardPopup.setEventListeners();
 
 const openViewerPopup = new PopupWithImage(".viewer", ".viewer__img", ".viewer__title");
