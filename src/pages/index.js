@@ -33,21 +33,19 @@ profileValidation.enableValidation();
 newCardValidation.enableValidation();
 
 const api = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-41/users/me',
+  url: 'https://mesto.nomoreparties.co/v1/cohort-41/',
   headers: {
     'authorization': '8357035a-bce9-4448-9840-71df6831b184',
     'content-type': 'application/json'
   }
 })
+const userInfo = new UserInfo({nameSelector: ".profile__name", professionSelector: ".profile__profession", avatarSelector: ".profile__avatar"});
 const userInfoApi = api.getProfileInfo();
 userInfoApi.then((apiData) => {
-  const userInfo = new UserInfo({nameSelector: ".profile__name", professionSelector: ".profile__profession", avatarSelector: ".profile__avatar"});
   userInfo.setUserInfo(apiData);
 }).catch((err) => {
   alert(err);
 })
-
-const userInfo = new UserInfo({nameSelector: ".profile__name", professionSelector: ".profile__profession", avatarSelector: "profile__avatar"});
 
 const handleProfileFormSubmit = (data) => {
   userInfo.setUserInfo(data);
@@ -63,6 +61,8 @@ profileEditBtn.addEventListener("click", () => {
 
 const openProfilePopup = new PopupWithForm(".popup_section_profile", handleProfileFormSubmit);
 openProfilePopup.setEventListeners();
+
+const section = new Section({}, cardContainer);
 
 cardBtnElement.addEventListener("click", () => {
   newCardValidation.toggleButtonState();
@@ -82,9 +82,15 @@ const renderCard = (cardData) => {
   return card.generateCard();
 };
 
-const section = new Section({
-  items: initialCards,
-  renderer: (cardData) => section.addItem(renderCard(cardData))
-}, cardContainer);
+const initialsApiCards = api.getCards();
+initialsApiCards.then((cards) => {
+  cards.forEach(cardData => {
+    section.addItem(renderCard(cardData));
+  })
+})
 
-section.renderItems();
+// const section = new Section({
+//   items: initialCards,
+//   renderer: (cardData) => section.addItem(renderCard(cardData))
+// }, cardContainer);
+// section.renderItems();
