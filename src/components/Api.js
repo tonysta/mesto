@@ -25,10 +25,14 @@ export default class Api {
             return Promise.reject(res.status);
         })
     }
-    editProfile() {
-        return fetch(`${this._url}cards`, {
-            method: 'GET',
-            headers: this._headers
+    patchProfile(data) {
+        return fetch(`${this._url}users/me`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify({
+                name: data.name,
+                about: data.profession
+            })
         }).then((res) => {
             if (res.ok) {
                 return res.json();

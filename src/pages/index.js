@@ -48,7 +48,10 @@ userInfoApi.then((apiData) => {
 })
 
 const handleProfileFormSubmit = (data) => {
-  userInfo.setUserInfo(data);
+  const userInfoEdited = api.patchProfile(data);
+  userInfoEdited.then((userData) => {
+    userInfo.setUserInfo(userData);
+  })
 }
 
 profileEditBtn.addEventListener("click", () => {
