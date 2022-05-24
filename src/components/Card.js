@@ -4,6 +4,7 @@ export default class Card {
         this._link = data.link;
         this._cardSelector = cardSelector;
         this.handleCardClick = handleCardClick;
+        this._likeCounter = data.likes.length;
     }
     _getTemplate() {
         return document
@@ -19,6 +20,7 @@ export default class Card {
         this._setEventListeners();
 
         this._element.querySelector(".card__title").textContent = this._name;
+        this._element.querySelector(".card__like-counter").textContent = this._likeCounter;
         this._cardImage.src = this._link;
         this._cardImage.alt = this._name;
 
