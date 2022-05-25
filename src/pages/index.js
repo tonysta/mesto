@@ -40,12 +40,22 @@ const api = new Api({
   }
 })
 const userInfo = new UserInfo({nameSelector: ".profile__name", professionSelector: ".profile__profession", avatarSelector: ".profile__avatar"});
-const userInfoApi = api.getProfileInfo();
-userInfoApi.then((apiData) => {
-  userInfo.setUserInfo(apiData);
-}).catch((err) => {
-  alert(err);
-})
+// const userInfoApi = api.getProfileInfo();
+// const initialsApiCards = api.getCards();
+
+Promise.all([api.getProfileInfo(), api.getCards()])
+    .then(([profileInfo, cards]) => {
+      userInfo.setUserInfo(profileInfo);
+      cards.reverse().forEach(cardData => {
+          section.addItem(renderCard(cardData, userInfo.id));
+        })
+    })
+
+// userInfoApi.then((apiData) => {
+//   userInfo.setUserInfo(apiData);
+// }).catch((err) => {
+//   alert(err);
+// })
 
 const handleProfileFormSubmit = (data) => {
   const userInfoEdited = api.patchProfile(data);
@@ -75,7 +85,7 @@ cardBtnElement.addEventListener("click", () => {
 const handleCardFormSubmit = (data) => {
   const newCard = api.addCard(data);
   newCard.then((cardData) => {
-    section.addItem(renderCard(cardData));
+    section.addItem(renderCard(cardData, userInfo.id));
   })
 }
 
@@ -88,17 +98,13 @@ const handleCardClick = (link, name) => {
 };
 openViewerPopup.setEventListeners();
 
-const renderCard = (cardData) => {
-  const card = new Card(cardData, ".card__template", handleCardClick);
+const renderCard = (cardData, userId) => {
+  const card = new Card(cardData, ".card__template", handleCardClick, userId);
   return card.generateCard();
 };
 
-const initialsApiCards = api.getCards();
-initialsApiCards.then((cards) => {
-  cards.forEach(cardData => {
-    section.addItem(renderCard(cardData));
-  })
-})
+
+
 
 // const section = new Section({
 //   items: initialCards,
