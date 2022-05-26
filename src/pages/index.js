@@ -8,6 +8,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
+import PopupWithSubmit from "../components/PopupWithSubmit.js";
 
 const profileEditBtn = document.querySelector(".profile__edit-btn");
 const profileForm = document.querySelector(".popup__form_type_profile");
@@ -16,6 +17,7 @@ const popupName = document.querySelector(".popup__input_type_name");
 const popupProfession = document.querySelector(".popup__input_type_profession");
 const cardContainer = ".cards-container";
 const cardBtnElement = document.querySelector(".profile__add-btn");
+
 
 const validationSettings = {
   formSelector: '.popup__form',
@@ -40,16 +42,17 @@ const api = new Api({
   }
 })
 const userInfo = new UserInfo({nameSelector: ".profile__name", professionSelector: ".profile__profession", avatarSelector: ".profile__avatar"});
-// const userInfoApi = api.getProfileInfo();
+
 // const initialsApiCards = api.getCards();
 
 Promise.all([api.getProfileInfo(), api.getCards()])
     .then(([profileInfo, cards]) => {
       userInfo.setUserInfo(profileInfo);
-      cards.reverse().forEach(cardData => {
+      cards.forEach(cardData => {
           section.addItem(renderCard(cardData, userInfo.id));
         })
     })
+// const userInfoApi = api.getProfileInfo();
 
 // userInfoApi.then((apiData) => {
 //   userInfo.setUserInfo(apiData);
@@ -89,6 +92,23 @@ const handleCardFormSubmit = (data) => {
   })
 }
 
+const handleCardDeleteBtn = (cardId) => {
+  openSubmitPopup.open();
+  openSubmitPopup.getCardId(cardId);
+}
+
+const handlerCardDelete = (id) => {
+  api.deleteCard(id).then(() => {
+    card.removeHandler()
+  }).catch((err) => {
+    alert(err);
+  })
+}
+
+const openSubmitPopup = new PopupWithSubmit(".popup_confirm_delete", handlerCardDelete)
+openSubmitPopup.setEventListeners();
+
+
 const openCardPopup = new PopupWithForm(".popup_section_card", handleCardFormSubmit);
 openCardPopup.setEventListeners();
 
@@ -99,7 +119,7 @@ const handleCardClick = (link, name) => {
 openViewerPopup.setEventListeners();
 
 const renderCard = (cardData, userId) => {
-  const card = new Card(cardData, ".card__template", handleCardClick, userId);
+  const card = new Card(cardData, ".card__template", handleCardClick, userId, handleCardDeleteBtn);
   return card.generateCard();
 };
 
