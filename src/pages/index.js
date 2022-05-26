@@ -105,14 +105,14 @@ const handleCardFormSubmit = (data) => {
   });
 }
 
-const handleCardDeleteBtn = (cardId) => {
+const handleCardDeleteBtn = (card) => {
   openSubmitPopup.open();
-  openSubmitPopup.getCardId(cardId);
+  openSubmitPopup.getCardId(card);
 }
 
-const handlerCardDelete = (id) => {
-  api.deleteCard(id).then(() => {
-
+const handlerCardDelete = (card) => {
+  api.deleteCard(card.cardId).then(() => {
+  card.removeCard()
   }).catch((err) => {
     alert(err);
   })
@@ -132,7 +132,7 @@ const handleCardClick = (link, name) => {
 openViewerPopup.setEventListeners();
 
 const renderCard = (cardData, userId) => {
-  const card = new Card(cardData, ".card__template", handleCardClick, userId, handleCardDeleteBtn);
+  const card = new Card(cardData, ".card__template", handleCardClick, userId, handleCardDeleteBtn, addLike, removeLike);
   return card.generateCard();
 };
 
@@ -164,3 +164,17 @@ const renderLoading = (popup, isLoading = false) => {
     currentActiveButton.textContent = 'Сохранить';
   }
 };
+
+const addLike = (card) => {
+  api.addLike(card).then(({likes}) => {
+  card.updateLikes(likes);
+  card.renderCounter()
+  })
+}
+
+const removeLike = (card) => {
+  api.removeLike(card).then(({likes}) => {
+    card.updateLikes(likes);
+    card.renderCounter()
+  })
+}

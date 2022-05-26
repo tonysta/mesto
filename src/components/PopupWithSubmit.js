@@ -11,12 +11,11 @@ export default class PopupWithSubmit extends Popup{
 
         this._popupForm.onsubmit = (evt) => {
             evt.preventDefault();
-            console.log(this._cardId);
-            this._handleFormSubmit(this._cardId)
+            this._handleFormSubmit(this._card)
             this.close();
         }
     }
-    getCardId(cardId) {
-        this._cardId = cardId;
+    getCardId(card) {
+        this._card = card;
     }
 }
