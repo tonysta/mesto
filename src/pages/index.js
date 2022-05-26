@@ -61,10 +61,17 @@ Promise.all([api.getProfileInfo(), api.getCards()])
 
 
 const handleProfileFormSubmit = (data) => {
+
   const userInfoEdited = api.patchProfile(data);
+  renderLoading("popup_section_profile", true);
   userInfoEdited.then((userData) => {
     userInfo.setUserInfo(userData);
-  })
+    openProfilePopup.close();
+  }).catch((err) => {
+    console.log(`Ошибка ${err}`);
+  }).finally(() => {
+    renderLoading("popup_section_profile", false);
+  });
 }
 
 profileEditBtn.addEventListener("click", () => {
@@ -86,11 +93,16 @@ cardBtnElement.addEventListener("click", () => {
 });
 
 const handleCardFormSubmit = (data) => {
-  renderLoading("")
+  renderLoading("popup_section_card", true);
   const newCard = api.addCard(data);
   newCard.then((cardData) => {
     section.addItem(renderCard(cardData, userInfo.id));
-  })
+    openCardPopup.close();
+  }).catch((err) => {
+    console.log(`Ошибка ${err}`);
+  }).finally(() => {
+    renderLoading("popup_section_card", false);
+  });
 }
 
 const handleCardDeleteBtn = (cardId) => {
@@ -100,7 +112,7 @@ const handleCardDeleteBtn = (cardId) => {
 
 const handlerCardDelete = (id) => {
   api.deleteCard(id).then(() => {
-    card.removeHandler()
+
   }).catch((err) => {
     alert(err);
   })
@@ -125,10 +137,14 @@ const renderCard = (cardData, userId) => {
 };
 
 const openAvatarPopup = new PopupWithForm(".popup_edit_avatar", (data) => {
+  renderLoading("popup_edit_avatar", true);
   api.editAvatar(data.link).then((res) => {
     userInfo.setUserInfo(res);
     openAvatarPopup.close();
-  }).catch((err) => alert(err));
+  }).catch((err) => console.log(err))
+      .finally(() => {
+    renderLoading("popup_edit_avatar", false);
+  });
 });
 
 openAvatarPopup.setEventListeners();
@@ -140,7 +156,7 @@ avatarEditBtn.addEventListener("click", () => {
 
 const renderLoading = (popup, isLoading = false) => {
   const currentActiveButton = document.querySelector(
-      `.${popup} .popup__submit-button`
+      `.${popup} .popup__submit`
   );
   if (isLoading) {
     currentActiveButton.textContent = 'Сохранение...';
