@@ -3,7 +3,6 @@ import './index.css';
 import Card from '../components/Card.js';
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
-import {initialCards} from "../utils/cards.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
@@ -11,12 +10,18 @@ import Api from "../components/Api.js";
 import PopupWithSubmit from "../components/PopupWithSubmit.js";
 
 const profileEditBtn = document.querySelector(".profile__edit-btn");
+const avatarEditBtn = document.querySelector(".profile__edit-avatar-btn");
+const cardBtnElement = document.querySelector(".profile__add-btn");
+
 const profileForm = document.querySelector(".popup__form_type_profile");
 const cardForm = document.querySelector(".popup__form_type_card");
+const avatarForm = document.querySelector(".popup__form_type_avatar");
+
 const popupName = document.querySelector(".popup__input_type_name");
 const popupProfession = document.querySelector(".popup__input_type_profession");
 const cardContainer = ".cards-container";
-const cardBtnElement = document.querySelector(".profile__add-btn");
+
+
 
 
 const validationSettings = {
@@ -30,9 +35,11 @@ const validationSettings = {
 
 const profileValidation = new FormValidator(validationSettings, profileForm);
 const newCardValidation = new FormValidator(validationSettings, cardForm);
+const avatarValidation = new FormValidator(validationSettings, avatarForm);
 
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
+avatarValidation.enableValidation();
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-41/',
@@ -43,7 +50,6 @@ const api = new Api({
 })
 const userInfo = new UserInfo({nameSelector: ".profile__name", professionSelector: ".profile__profession", avatarSelector: ".profile__avatar"});
 
-// const initialsApiCards = api.getCards();
 
 Promise.all([api.getProfileInfo(), api.getCards()])
     .then(([profileInfo, cards]) => {
@@ -52,13 +58,7 @@ Promise.all([api.getProfileInfo(), api.getCards()])
           section.addItem(renderCard(cardData, userInfo.id));
         })
     })
-// const userInfoApi = api.getProfileInfo();
 
-// userInfoApi.then((apiData) => {
-//   userInfo.setUserInfo(apiData);
-// }).catch((err) => {
-//   alert(err);
-// })
 
 const handleProfileFormSubmit = (data) => {
   const userInfoEdited = api.patchProfile(data);
@@ -86,6 +86,7 @@ cardBtnElement.addEventListener("click", () => {
 });
 
 const handleCardFormSubmit = (data) => {
+  renderLoading("")
   const newCard = api.addCard(data);
   newCard.then((cardData) => {
     section.addItem(renderCard(cardData, userInfo.id));
@@ -123,11 +124,27 @@ const renderCard = (cardData, userId) => {
   return card.generateCard();
 };
 
+const openAvatarPopup = new PopupWithForm(".popup_edit_avatar", (data) => {
+  api.editAvatar(data.link).then((res) => {
+    userInfo.setUserInfo(res);
+    openAvatarPopup.close();
+  }).catch((err) => alert(err));
+});
 
+openAvatarPopup.setEventListeners();
 
+avatarEditBtn.addEventListener("click", () => {
+  avatarValidation.toggleButtonState();
+  openAvatarPopup.open();
+})
 
-// const section = new Section({
-//   items: initialCards,
-//   renderer: (cardData) => section.addItem(renderCard(cardData))
-// }, cardContainer);
-// section.renderItems();
+const renderLoading = (popup, isLoading = false) => {
+  const currentActiveButton = document.querySelector(
+      `.${popup} .popup__submit-button`
+  );
+  if (isLoading) {
+    currentActiveButton.textContent = 'Сохранение...';
+  } else {
+    currentActiveButton.textContent = 'Сохранить';
+  }
+};
