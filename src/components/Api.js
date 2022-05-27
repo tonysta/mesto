@@ -8,10 +8,7 @@ export default class Api {
             method: 'GET',
             headers: this._headers
         }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(res.status);
+            return this.handleError(res);
         })
     }
     getCards() {
@@ -19,10 +16,7 @@ export default class Api {
             method: 'GET',
             headers: this._headers
         }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(res.status);
+            return this.handleError(res);
         })
     }
     patchProfile(data) {
@@ -34,10 +28,7 @@ export default class Api {
                 about: data.profession
             })
         }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(res.status);
+            return this.handleError(res);
         })
     }
     addCard(data) {
@@ -49,10 +40,7 @@ export default class Api {
                 link: data.link
             })
         }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(res.status);
+            return this.handleError(res);
         })
     }
     deleteCard(cardId) {
@@ -60,10 +48,7 @@ export default class Api {
             method: 'DELETE',
             headers: this._headers
         }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(res.status);
+            return this.handleError(res);
         })
     }
     editAvatar(data) {
@@ -74,10 +59,7 @@ export default class Api {
                 avatar: data
             })
         }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(res.status);
+            return this.handleError(res);
         })
     }
     addLike({cardId}) {
@@ -85,10 +67,7 @@ export default class Api {
             method: 'PUT',
             headers: this._headers
         }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(res.status);
+            return this.handleError(res);
         })
     }
     removeLike({cardId}) {
@@ -96,10 +75,13 @@ export default class Api {
             method: 'DELETE',
             headers: this._headers
         }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(res.status);
+            return this.handleError(res);
         })
+    }
+    handleError(res) {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(res.status);
     }
 }
