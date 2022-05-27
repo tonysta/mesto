@@ -11,7 +11,6 @@ export default class Card {
         this.cardId = data._id;
         this._addLike = addLike;
         this._removeLike = removeLike;
-
     }
 
     _getTemplate() {

@@ -22,8 +22,6 @@ const popupProfession = document.querySelector(".popup__input_type_profession");
 const cardContainer = ".cards-container";
 
 
-
-
 const validationSettings = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -54,16 +52,13 @@ const userInfo = new UserInfo({nameSelector: ".profile__name", professionSelecto
 Promise.all([api.getProfileInfo(), api.getCards()])
     .then(([profileInfo, cards]) => {
       userInfo.setUserInfo(profileInfo);
-      cards.forEach(cardData => {
-          section.addItem(renderCard(cardData, userInfo.id));
-        })
+      section.renderItems(cards, userInfo.id);
     }).catch((err) => {
   console.log(`Ошибка ${err}`);
 })
 
 
 const handleProfileFormSubmit = (data) => {
-
   const userInfoEdited = api.patchProfile(data);
   renderLoading("popup_section_profile", true);
   userInfoEdited.then((userData) => {
@@ -87,7 +82,6 @@ profileEditBtn.addEventListener("click", () => {
 const openProfilePopup = new PopupWithForm(".popup_section_profile", handleProfileFormSubmit);
 openProfilePopup.setEventListeners();
 
-const section = new Section({}, cardContainer);
 
 cardBtnElement.addEventListener("click", () => {
   newCardValidation.toggleButtonState();
@@ -114,7 +108,8 @@ const handleCardDeleteBtn = (card) => {
 
 const handlerCardDelete = (card) => {
   api.deleteCard(card.cardId).then(() => {
-  card.removeCard()
+  card.removeCard();
+  openSubmitPopup.close();
   }).catch((err) => {
     console.log(`Ошибка ${err}`);
   })
@@ -122,7 +117,6 @@ const handlerCardDelete = (card) => {
 
 const openSubmitPopup = new PopupWithSubmit(".popup_confirm_delete", handlerCardDelete)
 openSubmitPopup.setEventListeners();
-
 
 const openCardPopup = new PopupWithForm(".popup_section_card", handleCardFormSubmit);
 openCardPopup.setEventListeners();
@@ -137,6 +131,8 @@ const renderCard = (cardData, userId) => {
   const card = new Card(cardData, ".card__template", handleCardClick, userId, handleCardDeleteBtn, addLike, removeLike);
   return card.generateCard();
 };
+
+const section = new Section(renderCard, cardContainer);
 
 const openAvatarPopup = new PopupWithForm(".popup_edit_avatar", (data) => {
   renderLoading("popup_edit_avatar", true);

@@ -11,8 +11,7 @@ export default class PopupWithSubmit extends Popup{
 
         this._popupForm.onsubmit = (evt) => {
             evt.preventDefault();
-            this._handleFormSubmit(this._card)
-            this.close();
+            this._handleFormSubmit(this._card);
         }
     }
     getCardId(card) {
