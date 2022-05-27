@@ -57,7 +57,9 @@ Promise.all([api.getProfileInfo(), api.getCards()])
       cards.forEach(cardData => {
           section.addItem(renderCard(cardData, userInfo.id));
         })
-    })
+    }).catch((err) => {
+  console.log(`Ошибка ${err}`);
+})
 
 
 const handleProfileFormSubmit = (data) => {
@@ -114,7 +116,7 @@ const handlerCardDelete = (card) => {
   api.deleteCard(card.cardId).then(() => {
   card.removeCard()
   }).catch((err) => {
-    alert(err);
+    console.log(`Ошибка ${err}`);
   })
 }
 
@@ -169,6 +171,8 @@ const addLike = (card) => {
   api.addLike(card).then(({likes}) => {
   card.updateLikes(likes);
   card.renderCounter()
+  }).catch((err) => {
+    console.log(`Ошибка ${err}`);
   })
 }
 
@@ -176,5 +180,7 @@ const removeLike = (card) => {
   api.removeLike(card).then(({likes}) => {
     card.updateLikes(likes);
     card.renderCounter()
+  }).catch((err) => {
+    console.log(`Ошибка ${err}`);
   })
 }
